@@ -8,7 +8,7 @@ db.run("CREATE TABLE IF NOT EXISTS userTable (username TEXT PRIMARY KEY, passwor
 db.run("CREATE TABLE IF NOT EXISTS postTable (\n" + "postID INTEGER PRIMARY KEY AUTOINCREMENT,\n" + "username TEXT,\n" + "postData TEXT,\n" + "postTime INT,\n" + "likeNum INT\n" + ");") 
 
 
-root_dir = "/home/krishna/Dropbox/jankytwitter/budgettwitter/frontend/app/"
+root_dir = "C:/Users/Bean/IdeaProjects/jankytwitter/budgettwitter/frontend/app/"
 
 app.get('/', function(req, res){
 	res.sendFile(root_dir + "index.html"); 
