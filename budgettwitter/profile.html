@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>BudgetTwitter</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="shortcut icon" href="#">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+
+    <script defer src="https://use.fontawesome.com/releases/v5.0.2/js/all.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+
+    <link rel="stylesheet" href="tweet.css">
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-gunmetal">
+
+    <div class="container">
+
+        <a class="navbar-brand text-pastelyellow" href="dashboard.html">
+            <strong>Home</strong>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#primary-navigation" aria-controls="primary-navigation" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="primary-navigation">
+
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+
+                <li class="nav-item">
+                    <a class="nav-link text-pastelyellow hvr-underline-from-center" href="signin.html">
+                        <i class="fas fa-sign-in-alt"></i> Logout
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+<section class="container wrapper section-dashboard">
+
+    <div class="row user-panel">
+
+        <div class="col-xl-3 col-lg-3 col-md-3 text-center">
+
+            <img id='user-image' data-value="2" src="FF.png" class="img-fluid rounded profile-picture" alt="profile picture">
+
+            <h4>FF</h4>
+            <hr class="hr-full">
+
+            <h6 id="user-bio1" class="edit"> Birthday: 09.09.1950 </h6>
+            <h6 id="user-bio2" class="edit"> Gender: unknown</h6>
+            <h6 id="user-bio3" class="edit"> Location: CU</h6>
+            <h6 class="btn btn-primary">Follow</h6>
+        </div>
+
+        <div class="col-xl-9 col-lg-9 col-md-9">
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="home" aria-selected="true">Posts</a>
+                </li>
+            </ul><br>
+
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="media">
+                        <img class="rounded mr-3 post-picture" src="FF.png" alt="Generic placeholder image">
+                        <div class="media-body">
+                            <h5 class="mt-0">FF</h5>
+                            <textarea name="update-task" id="update-message-3" class="update-task form-control"></textarea>
+
+                            <span id="message-3">Global warming is fake!</span><br>
+                            <small>
+                                <span id="postedTime"> March 18th 2018, 7:02:08 am </span>
+                            </small><br>
+                        </div>
+                    </div><br>
+                    <hr class="hr">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="matchuser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="insertdata">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
