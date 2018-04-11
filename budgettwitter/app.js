@@ -13,35 +13,30 @@ app.post('/tweet', function(req, res){
 	postTime = new Date()
 	likeNum = 0
 
-	db.get("SELECT * FROM userTable WHERE username='" + username + "';", function(err, row){
+	db.get("SELECT COUNT(*) AS num FROM userTable WHERE username='" + username + "';", function(err, row){
 		if(err){
 			res.json(err) 
 			return 
 		}
 		console.log(row); 
 
-		if(row.length > 0){
+		if(row.num > 0){
 			db.run("INSERT INTO postTable(username, postData, postTime, likeNum) VALUES (?,?,?,?);", [username, postData, postTime, likeNum], function(err){
 				if(err){
 					res.json(err) 
 					return
 				}
-				db.get("SELECT * FROM postTable WHERE username='" + username + "';", function(err, row){
+				db.all("SELECT * FROM postTable WHERE username='" + username + "';", function(err, posts){
 					if(err){
 						res.json(err)
 						return
 					}
-					res.json(row)
-					console.log(row.length)
+					res.json(posts)
+					console.log(posts)
 				})
 			})
 		}
 	})
-
-
-
-
-
 })
 
 
@@ -67,7 +62,7 @@ app.post('/user', function(req, res){
 				res.json(err) 
 				return 
 			}
-			res.json(row)
+			res.json(row); 
 			console.log(username +":" + password) 
 		}) 
 	})
