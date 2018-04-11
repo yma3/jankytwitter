@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>BudgetTwitter</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="shortcut icon" href="#">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+
+    <script defer src="https://use.fontawesome.com/releases/v5.0.2/js/all.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+
+    <link rel="stylesheet" href="tweet.css">
+
+</head>
+
+<body ng-app="myApp" ng-controller="myControl">
+
+<nav class="navbar navbar-expand-md navbar-dark bg-gunmetal">
+
+    <div class="container">
+
+        <a class="navbar-brand text-pastelyellow" href="dashboard.html">
+            <strong>Home</strong>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#primary-navigation" aria-controls="primary-navigation" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="primary-navigation">
+
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+
+                <li class="nav-item">
+                    <a class="nav-link text-pastelyellow hvr-underline-from-center" href="signin.html">
+                        <i class="fas fa-sign-in-alt"></i> Logout
+                    </a>
+                </li>
+
+
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+<section class="container wrapper section-dashboard">
+
+    <div class="row user-panel">
+
+        <div class="col-xl-3 col-lg-3 col-md-3 text-center">
+
+            <img id='user-image' data-value="5" src="FF.png" class="img-fluid rounded profile-picture" alt="profile picture">
+
+            <h4>
+                <a class="navbar-brand text-pastelblue" href="profile.html">
+                    <strong>{{username}}</strong>
+                </a>
+            </h4>
+
+            <hr class="hr-full">
+
+            <h6 id="user-bio1" class="edit"> Birthday: {{birthday}} </h6>
+            <h6 id="user-bio2" class="edit"> Gender: unknown</h6>
+            <h6 id="user-bio3" class="edit"> Location: CU</h6>
+            <h6 id="user-bio3" class="edit"> Bio: {{bio}}</h6>
+            <hr class="hr-half">
+
+        </div>
+
+        <div class="col-xl-9 col-lg-9 col-md-9">
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="home" aria-selected="true">Posts</a>
+                </li>
+                <li class="nav-item" id="feed-tab">
+                    <a class="nav-link" data-toggle="tab" href="#feed" role="tab" aria-controls="profile" aria-selected="false">Feed</a>
+                </li>
+                <li class="nav-item" id="follower-tab" >
+                    <a class="nav-link" id="followers-user" data-toggle="tab" href="#follower" role="tab" aria-controls="follower" aria-selected="false">Followers</a>
+                </li>
+                <li class="nav-item" id="following-tab">
+                    <a class="nav-link" id="following-user" data-toggle="tab" href="#following" role="tab" aria-controls="following-tab" aria-selected="false">Following</a>
+                </li>
+            </ul><br>
+
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="home-tab">
+
+                        <div class="form-group">
+                            <textarea class="form-control" name="post" id="post" placeholder="Post something here" ng-model="postData"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn bg-junglegreen text-white" for="" ng-click="submitPost()">
+                                <i class="fas fa-comment"></i> Post
+                            </button>
+                            <label class="btn bg-junglegreen text-white file-upload" for="postImage">
+                                <input id="postImage" name="postImage" type="file" style="display:none"
+                                       onchange="$('#upload-file-info').html(this.files[0].name)">
+                                <i class="fas fa-camera-retro"></i>
+                            </label>
+                            <span class='label label-info' id="upload-file-info"></span>
+                        </div>
+                    </form>
+
+                    <hr class="hr-full">
+
+
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    <button type="button" id="btn-delete" class="btn btn-danger btn-delete">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-repeat="post in listPosts">
+                    <div>
+                        <p>{{post.postTime | date:'fullDate'}}</p>
+                        <p>{{post.postTime | date:'shortTime'}}</p>
+                    </div>
+                    <div>
+                        <p>{{post.postData}}</p>
+                    </div>
+                </div>
+
+
+                <div class="tab-pane fade" id="feed" role="tabpanel" aria-labelledby="feed-tab">
+                </div>
+
+                <div class="tab-pane fade" id="follower" role="tabpanel" aria-labelledby="follower-tab">
+                </div>
+
+                <div class="tab-pane fade" id="following" role="tabpanel" aria-labelledby="following-tab">
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- AngularJS Material Dependencies -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-animate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-aria.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-messages.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-cookies.js"></script>
+
+<!-- AngularJS Material Javascript now available via Google CDN; version 1.1.4 used here -->
+<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.6/angular-material.min.js"></script>
+
+
+<script>
+
+    var app = angular.module("myApp", ['ngCookies']); 
+
+    app.controller("myControl", function($scope, $http, $window, $rootScope, $cookies){
+
+        console.log($cookies.get('username'))
+
+        $scope.username = $cookies.get('username')
+
+        $http({
+            method: 'GET', 
+            url: 'http://localhost:3000/profile?username=' + $scope.username
+        }).then(function successCallback(response){
+                $scope.birthday = formatDate(new Date(response.data.birthday))
+                $scope.bio = response.data.bio
+
+        }, function errorCallback(response){
+            console.log("Error response:" + response); 
+        })
+
+
+        function formatDate(date) {
+            var monthNames = [
+                "January", "February", "March",
+                "April", "May", "June", "July",
+                "August", "September", "October",
+                "November", "December"
+            ];
+
+            var day = date.getDate();
+            var monthIndex = date.getMonth();
+            var year = date.getFullYear();
+
+            return monthNames[monthIndex] + ' ' + day + ', ' + year;
+        }
+
+        $http({
+            method: 'GET', 
+            url: 'http://localhost:3000/getUserPosts?username=' + $scope.username
+        }).then(function successCallback(response){
+            $scope.listPosts = response.data
+        }, function errorCallback(response){
+            console.log("Error response:" + response); 
+        })
+
+
+        $scope.submitPost = function() {
+            console.log($scope.postData)
+
+
+            // console.log($scope.username + " " + $scope.password)
+            // console.log('http://localhost:3000/posts?username=' + $scope.username + '&password=' + $scope.password)
+
+
+            // $scope.RedirectToURL = function() {
+            //   var host = $window.location.host;
+            //   var landingUrl = "http://localhost:3000/dashboard.html";
+            //   $cookies.put('username', $scope.username)
+            //   console.log($cookies.get('username'))
+            //   console.log($scope.username)
+            //   $window.location.href = landingUrl;
+            // };
+
+            $http({
+                method: 'GET', 
+                url: 'http://localhost:3000/tweet?postData=' + $scope.postData + '&username=' + $scope.username
+            }).then(function successCallback(response){
+                $scope.listPosts = response.data
+            }, function errorCallback(response){
+                console.log("Error response:" + response); 
+            })
+        }
+
+    })
+
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

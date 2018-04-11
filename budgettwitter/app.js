@@ -8,7 +8,61 @@ db.run("CREATE TABLE IF NOT EXISTS userTable (username TEXT PRIMARY KEY, passwor
 db.run("CREATE TABLE IF NOT EXISTS postTable (\n" + "postID INTEGER PRIMARY KEY AUTOINCREMENT,\n" + "username TEXT,\n" + "postData TEXT,\n" + "postTime INT,\n" + "likeNum INT\n" + ");") 
 
 
-app.post('/tweet', function(req, res){
+root_dir = "/home/krishna/Dropbox/jankytwitter/budgettwitter/frontend/app/"
+
+app.get('/', function(req, res){
+	res.sendFile(root_dir + "index.html"); 
+})
+
+app.get('/dashboard.html', function(req, res){
+	res.sendFile(root_dir + 'dashboard.html')
+})
+
+app.get('/signin.html', function(req, res){
+	res.sendFile(root_dir + "signin.html"); 
+})
+
+app.get('/signup.html', function(req, res){
+	res.sendFile(root_dir + "signup.html");
+})
+
+app.get('/profile', function(req, res){
+	console.log(req.query)
+	username = req.query['username']
+
+	db.get("SELECT * FROM userTable WHERE username='" + username + "';", function(err, row){
+		if(err){
+			res.json(err)
+			return
+		}
+		console.log(row)
+		res.json(row)
+	})
+})
+
+app.get('/getUserPosts', function(req, res){
+	username = req.query['username']
+	db.get("SELECT COUNT(*) AS num FROM userTable WHERE username='" + username + "';", function(err, row){
+		if(err){
+			res.json(err) 
+			return 
+		}
+		console.log(row); 
+
+		if(row.num > 0){
+			db.all("SELECT * FROM postTable WHERE username='" + username + "';", function(err, posts){
+				if(err){
+					res.json(err)
+					return
+				}
+				res.json(posts)
+				console.log(posts)
+			})
+		}
+	})
+})
+
+app.get('/tweet', function(req, res){
 	postData = req.query['postData']
 	username = req.query['username']
 	postTime = new Date()
@@ -41,7 +95,7 @@ app.post('/tweet', function(req, res){
 })
 
 
-app.post('/user', function(req, res){
+app.get('/register', function(req, res){
 
 	username = req.query['username']
 	password = req.query['password']
@@ -50,7 +104,7 @@ app.post('/user', function(req, res){
 	email = ""  //req.query['email']
 	birthday = new Date() //new Date(req.query['dob'])
 	FollowerNum = 0 //0 
-	bio = "" 
+	bio = "Default bio" 
 	image = "" 
 
 	db.run("INSERT INTO userTable(username, password, first_name, last_name, email, birthday, FollowerNum, bio, image) VALUES(?,?,?,?,?,?,?, ?, ? );", [username, password, first_name, last_name, email, birthday, FollowerNum, bio, image], function(err){
@@ -63,7 +117,7 @@ app.post('/user', function(req, res){
 				res.json(err) 
 				return 
 			}
-			res.json(row); 
+			res.json({success: true}); 
 			console.log(username +":" + password) 
 		}) 
 	})
